@@ -1,0 +1,8 @@
+%visualize
+y=[];
+for i=1:12
+    Y=meantest(i);
+    y=[y,Y];%append
+end
+x=[1:12];%månader
+plot(x,y,'x')
