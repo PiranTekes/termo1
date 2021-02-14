@@ -1,0 +1,22 @@
+%Beräknar medelvärde av COP av alla dagar av en viss månad under alla åren
+
+function [medel,total,every]=meantest2(month)
+M = importdata('Uppsala_temperaturer_2008_2018.txt', ' ', 1);
+
+
+Tute=allthemonth(month); %utetemp alla dagar 
+
+N_days=size(Tute,1);%totala antalet januaridagar
+TH=Tradiator(Tute);
+TL=10;
+COPsum=0;
+every=[];
+for r=1:N_days    
+    COP=1/(TH(r)/TL-1);
+    COPsum=COPsum+COP;
+    every=[every;COP];
+end
+total=COPsum;
+medel=COPsum/N_days;
+end
+
