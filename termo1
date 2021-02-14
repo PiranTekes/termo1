@@ -1,0 +1,13 @@
+%termo matlabuppgift 1 test
+
+ M = importdata('Uppsala_temperaturer_2008_2018.txt', ' ', 1);
+
+T_inne=21;
+month=1;%jan
+r=1;
+while M.data(r,2)==month %medans månaden är den valda månaden
+    T_ute=M.data(r,4); %hämtar utetemp från kolumn 4
+    T_diff=T_inne-T_ute;
+    Heat_leak=2*T_diff*24;
+    r=r+1;%räknar upp dagar
+end
