@@ -1,0 +1,16 @@
+%Hämtar Temp_ute för alla dagar av en viss månad mellan åren 2008-2017
+function A=allthemonth(month)
+
+ M = importdata('Uppsala_temperaturer_2008_2018.txt', ' ', 1);
+ 
+ %while M.data(r,2)==month
+N=size(M.data(:,1),1);
+B=[];
+for r=1:N
+    if M.data(r,2)==month
+        B=[B;M.data(r,4)];
+    end
+end
+
+A=B;
+end
