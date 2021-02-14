@@ -13,7 +13,7 @@ for r=1:N
     Leak=2*T_diff*24; %dagens värmeläckage
     Heat_leak=[Heat_leak;Leak]; %sökt
 end
-fprintf('Husets värmeläckage för alla dagar under perioden är Heat_leak.');
+disp('Husets värmeläckage för alla dagar under perioden är Heat_leak.');
 
 
 %Visualiserar medelvärdet av värmeläckaget över månaderna
@@ -24,11 +24,11 @@ for i=1:12
 end
 x=[1:12];%månader
 
-figure
-plot(x,y,'x')
-title('Medelvärdet av värmeläckaget över månaderna');
-xlabel('Månader');
-ylabel('Medelvärde värmeläckage [MJ]');
+% figure
+% plot(x,y,'x')
+% title('Medelvärdet av värmeläckaget över månaderna');
+% xlabel('Månader');
+% ylabel('Medelvärde värmeläckage [MJ]');
 
 %----------------------------------------------------------
 
@@ -47,15 +47,36 @@ for r=1:N  %för varje dag
     COP2=[COP2;COP]; %lista COP
 end
 
-%Visualiserar medelvärdet av COPn över månaderna
+disp('COP för alla dagar under perioden är COP2.');
+
+Visualiserar medelvärdet av COPn över månaderna
 yy=[];
 for i=1:12
     Y=meantest2(i);
     yy=[yy,Y];%append
 end
-x=[1:12];%månader
-plot(x,yy,'--')
+
+% figure
+% plot(x,yy,'--')
+% title('Medelvärdet av COPn över månaderna')
+% xlabel('Månader')
+% ylabel('Medelvärde COP');
 
 %------------------------------------------------
 
+%Beräknar energiförbrukningen av alla dagar under perioden 2008-2017
+E_day=Heat_leak./COP2;
+disp('Energiförbrukningen för alla dagar under perioden är E_day.');
 
+%Visualiserar medelvärdet av Energiförbrukningen över månaderna
+yyy=[];
+for i=1:12
+    Y=meantest3(i);
+    yyy=[yyy,Y];%append
+end
+
+figure
+plot(x,yyy,'--')
+title('Medelvärdet av Energiförbrukningen över månaderna')
+xlabel('Månader')
+ylabel('Medelvärde Energiförbrukning [MJ]');
