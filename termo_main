@@ -49,7 +49,7 @@ end
 
 disp('COP för alla dagar under perioden är COP2.');
 
-Visualiserar medelvärdet av COPn över månaderna
+%Visualiserar medelvärdet av COPn över månaderna
 yy=[];
 for i=1:12
     Y=meantest2(i);
