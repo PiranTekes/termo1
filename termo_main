@@ -1,0 +1,61 @@
+%mainfil för Termo Matlabuppgift 1
+M = importdata('Uppsala_temperaturer_2008_2018.txt', ' ', 1);
+
+%--------------Uppgift (1)--------------
+
+%%Beräknar husets värmeläckage för alla dagar under perioden 2008-2017
+T_inne=21;
+N=size(M.data(:,1),1);
+Heat_leak=[];
+for r=1:N
+    T_ute=M.data(r,4); %hämtar utetemp från kolumn 4
+    T_diff=abs(T_inne-T_ute);%temperatur differans
+    Leak=2*T_diff*24; %dagens värmeläckage
+    Heat_leak=[Heat_leak;Leak]; %sökt
+end
+fprintf('Husets värmeläckage för alla dagar under perioden är Heat_leak.');
+
+
+%Visualiserar medelvärdet av värmeläckaget över månaderna
+y=[];
+for i=1:12
+    Y=meantest(i);
+    y=[y,Y];%append
+end
+x=[1:12];%månader
+
+figure
+plot(x,y,'x')
+title('Medelvärdet av värmeläckaget över månaderna');
+xlabel('Månader');
+ylabel('Medelvärde värmeläckage [MJ]');
+
+%----------------------------------------------------------
+
+%Beräknar COP av alla dagar under perioden 2008-2017
+
+Tute=[];
+for r=1:N %för varje dag
+    Tute=[Tute;M.data(r,4)];%hämta utetemp 
+end
+
+TH=Tradiator(Tute); %funktion
+TL=10;
+COP2=[];
+for r=1:N  %för varje dag
+    COP=1/(TH(r)/TL-1); %beräkna COP
+    COP2=[COP2;COP]; %lista COP
+end
+
+%Visualiserar medelvärdet av COPn över månaderna
+yy=[];
+for i=1:12
+    Y=meantest2(i);
+    yy=[yy,Y];%append
+end
+x=[1:12];%månader
+plot(x,yy,'--')
+
+%------------------------------------------------
+
+
