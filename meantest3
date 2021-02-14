@@ -1,0 +1,9 @@
+function medel=meantest3(month)
+
+[medel1,total1,every1]=meantest(month);
+[medel2,total2,every2]=meantest2(month);
+
+E_cons=every1./every2;
+medel=sum(E_cons)/size(E_cons,1);
+
+end
