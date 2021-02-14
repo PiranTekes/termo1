@@ -1,0 +1,31 @@
+function TH=Tradiator(Tute)
+
+N=size(Tute,1);
+
+TH=[];
+for r=1:N
+    
+    if Tute(r)<-4
+        th=36.44-0.64*Tute(r);
+    end
+
+    if Tute(r)>21
+        th=0;
+    end
+
+    if Tute(r)<=4
+        if Tute(r)>=-4
+            th=39;
+        end
+    end
+
+    if Tute(r)>4
+        if Tute(r) <=21
+            th=43.26-1.06*Tute(r);
+        end
+    end
+    TH=[TH;th];
+    
+end
+
+end
