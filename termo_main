@@ -49,6 +49,7 @@ end
 
 disp('COP för alla dagar under perioden är COP2.');
 
+
 %Visualiserar medelvärdet av COPn över månaderna
 yy=[];
 for i=1:12
@@ -75,8 +76,23 @@ for i=1:12
     yyy=[yyy,Y];%append
 end
 
-figure
-plot(x,yyy,'--')
-title('Medelvärdet av Energiförbrukningen över månaderna')
-xlabel('Månader')
-ylabel('Medelvärde Energiförbrukning [MJ]');
+% figure
+% plot(x,yyy,'--')
+% title('Medelvärdet av Energiförbrukningen över månaderna')
+% xlabel('Månader')
+% ylabel('Medelvärde Energiförbrukning [MJ]');
+
+%------Uppgift 2----------------
+E1=sum(E_day(1:366));%total energi 2008
+E2=sum(E_day(367:732));
+E3=sum(E_day(733:1096));
+E4=sum(E_day(1097:1461));
+E5=sum(E_day(1462:1827));
+E6=sum(E_day(1828:2192));
+E7=sum(E_day(2193:2557));
+E8=sum(E_day(2558:2922));
+E9=sum(E_day(2923:3288));
+E10=sum(E_day(3289:3653));%total energi 2017
+EE=(2.777e-7).*[E1 E2 E3 E4 E5 E6 E7 E8 E9 E10];%omvandla till kW/h
+xx=[2008 2009 2010 2011 2012 2013 2014 2015 2016 2017];
+plot(xx,EE,'x-')
