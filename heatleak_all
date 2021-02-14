@@ -6,7 +6,7 @@ N=size(M.data(:,1),1);
 Heat_leak=0;
 for r=1:N
     T_ute=M.data(r,4); %hämtar utetemp från kolumn 4
-    T_diff=T_inne-T_ute;
+    T_diff=abs(T_inne-T_ute);
     Heat_leak=Heat_leak+2*T_diff*24; %summerar värmeläckage per dag
 end
 Leak=Heat_leak;
