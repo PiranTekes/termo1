@@ -1,0 +1,17 @@
+%medelvärde test
+%jag vill ha:
+%"summera värmeläckaget från alla januaridagar under 2008-2017, och
+%dividera med totala antalet januaridagar"
+M = importdata('Uppsala_temperaturer_2008_2018.txt', ' ', 1);
+A=allthemonth(1);
+N_days=size(A,1);%totala antalet januaridagar
+
+T_inne=21;
+Heat_leak=0;
+for r=1:N_days
+    T_ute=A(r);
+    T_diff=abs(T_inne-T_ute);
+    Heat_leak=Heat_leak+2*T_diff*24; 
+end
+Total_heatleak=Heat_leak;
+medel=Total_heatleak/N_days;
