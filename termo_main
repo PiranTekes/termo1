@@ -1,6 +1,6 @@
 %mainfil för Termo Matlabuppgift 1
 M = importdata('Uppsala_temperaturer_2008_2018.txt', ' ', 1);
-
+Q= importdata('Uppsala_temperaturer_2008_2018.txt', ' ', 1);
 %--------------Uppgift (1)--------------
 
 %%Beräknar husets värmeläckage för alla dagar under perioden 2008-2017
@@ -26,7 +26,7 @@ x=[1:12];%månader
 
 % figure
 % plot(x,y,'x')
-% title('Medelvärdet av värmeläckaget över månaderna');
+% title('Medelvärde av värmeläckaget av en dag över månaderna');
 % xlabel('Månader');
 % ylabel('Medelvärde värmeläckage [MJ]');
 
@@ -63,7 +63,7 @@ end
 % xlabel('Månader')
 % ylabel('Medelvärde COP');
 
-%------------------------------------------------
+%-------------------------(iii)-----------------------
 
 %Beräknar energiförbrukningen av alla dagar under perioden 2008-2017
 E_day=Heat_leak./COP2;
@@ -75,24 +75,64 @@ for i=1:12
     Y=meantest3(i);
     yyy=[yyy,Y];%append
 end
+% % y4=(2.777*10^(-1)).*yyy;
+% % figure
+% % plot(x,y4,'x-')
+% % title('Medelvärdet av Energiförbrukningen över månaderna')
+% % xlabel('Månader')
+% % ylabel('Medelvärde Energiförbrukning [MJ]');
 
-% figure
-% plot(x,yyy,'--')
-% title('Medelvärdet av Energiförbrukningen över månaderna')
-% xlabel('Månader')
-% ylabel('Medelvärde Energiförbrukning [MJ]');
-
-%------Uppgift 2----------------
+%------Uppgift 2-------------------------------
 E1=sum(E_day(1:366));%total energi 2008
 E2=sum(E_day(367:732));
 E3=sum(E_day(733:1096));
-E4=sum(E_day(1097:1461));
-E5=sum(E_day(1462:1827));
-E6=sum(E_day(1828:2192));
+E4=sum(E_day(1097:1461));%        "
+E5=sum(E_day(1462:1827));%        "
+E6=sum(E_day(1828:2192));%        "
 E7=sum(E_day(2193:2557));
 E8=sum(E_day(2558:2922));
 E9=sum(E_day(2923:3288));
 E10=sum(E_day(3289:3653));%total energi 2017
-EE=(2.777e-7).*[E1 E2 E3 E4 E5 E6 E7 E8 E9 E10];%omvandla till kW/h
+EE=(2.777e-1).*[E1 E2 E3 E4 E5 E6 E7 E8 E9 E10];%omvandla till kW/h från mega joule
 xx=[2008 2009 2010 2011 2012 2013 2014 2015 2016 2017];
-plot(xx,EE,'x-')
+
+% figure
+% plot(xx,EE,'x-')
+% title('Årlig energiförbrukning kWh ');
+% xlabel('År');
+% ylabel('Energiförbrukning [kWh]');
+% %------------------------------------------------
+
+%-----uppgift 3------------------------------------
+A=Q.data(:,4);%strålningsdata
+S=A.*100.*0.07;%energi solcell [W]
+%SS=S*24*3600;%energi solcell [J]
+N1=size(Q.data(:,4),1);
+for r=1:N1%för varje rad 
+    if S(r)>E_day(r)%
+        S(r)=E_day(r);%ersätt
+    end
+end
+%S är nu sparade energin varje dag
+figure
+plot(1:N1,S,'-')
+title('Plottade sparade energin per dag över 10 år');
+
+%beräkna vilken procent av den årliga energiförbrukningen som levererades av solcellerna.
+
+
+S1=sum(S(1:366));
+S2=sum(S(367:732));
+S3=sum(S(733:1096));
+S4=sum(S(1097:1461));
+S5=sum(S(1462:1827));
+S6=sum(S(1828:2192));
+S7=sum(S(2193:2557));
+S8=sum(S(2558:2922));
+S9=sum(S(2923:3288));
+S10=sum(S(3289:3653));
+SS=(2.777e-1).*[S1 S2 S3 S4 S5 S6 S7 S8 S9 S10];
+procent=SS./EE;
+
+disp('Procent av den årliga energiförbrukningen som levererades av solcellerna är procent.');
+
